@@ -1,0 +1,161 @@
+/* === General Layout === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7f8fa;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* === Page Container === */
+#page_main {
+    display: flex;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* === Image Container === */
+#image_container img {
+    max-width: 300px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #ddd;
+}
+
+/* === Content === */
+#content_container {
+    flex: 1;
+}
+
+#content_container h1 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #222;
+}
+
+#content_container p {
+    margin: 0.6rem 0;
+    line-height: 1.5;
+}
+
+/* === Buttons === */
+button {
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s, transform 0.1s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+form button {
+    margin-top: 0.6rem;
+}
+
+/* Specific buttons */
+form[action*="close"] button {
+    background: #f97316;
+    color: white;
+}
+
+form[action*="bid"] button {
+    background: #2563eb;
+    color: white;
+}
+
+form[action*="add_watchlist"] button {
+    background: #16a34a;
+    color: white;
+}
+
+form[action*="remove_watchlist"] button {
+    background: #dc2626;
+    color: white;
+}
+
+/* === Comments Section === */
+#comment_container {
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+#comment_container h1 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+/* Comment form */
+#comment_form_container {
+    margin-bottom: 1.5rem;
+}
+
+#comment_textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+}
+
+#buttons_container {
+    display: flex;
+    gap: 0.8rem;
+}
+
+/* Cancel button */
+#cancel_button {
+    background: #e5e7eb;
+    color: #333;
+}
+
+/* Comment list */
+.comment {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+}
+
+.comment h6 {
+    margin: 0 0 0.3rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #111;
+}
+
+.comment h6 span {
+    margin-left: 0.5rem;
+    font-weight: normal;
+    font-size: 0.8rem;
+    color: #6b7280;
+}
+
+.comment p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}

@@ -1,0 +1,123 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block title %}
+    {{ listing.title }}
+{% endblock %}
+
+{% block style %}
+    <link href="{% static 'auctions/styles2.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="page_main">
+
+        <div id="image_container">
+            {% if listing.image_url %}
+                <img src="{{ listing.image_url.url }}" alt="">
+            {% else %}
+                <img src="{% static '/auctions/no_image_vector.jpg' %}">
+            {% endif %}
+        </div>
+
+        <div id="content_container">
+            <h1> {{ listing.title }}</h1>
+            <p> {{ listing.user }}</p>
+            <p>
+                <strong>Description:</strong>
+                {% if listing.description %}
+                    {{ listing.description }}
+                {% else %}
+                    <span style="color: grey;">No description...</span>
+                {% endif %}
+            </p>
+            <p><strong>Current Price: </strong> ${{ listing.highest_bid }}</p>
+
+            <!-- if user is the author of the listing -->
+            {% if request.user == listing.user %}
+            <form action="{% url 'close' listing.title %}">
+                <button type="submit">Close Listing</button>
+            </form>
+
+            <!-- if user is not the author of the listing and is signed in -->
+            {% elif request.user.is_authenticated %}
+                <form action="bid/" method="get">
+                    <button type="submit">Bid</button>
+                </form>
+
+            <!-- if user is not the author of the listing and is not signed in -->
+            {% else %}
+                <form action="{% url 'login' %}" method="get">
+                    <button type="submit">Log In To Bid</button>
+                </form>
+            {% endif %}
+            
+            <!--if the user is signed id-->
+            {% if request.user.is_authenticated %}
+                {% if listing not in request.user.watchlist.all %}
+                    <form action="add_watchlist/" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="background-color: green">Add Watchlist</button>
+                    </form>
+                {% else %}
+                    <form action="remove_watchlist/" method="post">
+                        {% csrf_token %}
+                        <button type="submit" style="background-color: red">Remove Watchlist</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <!-- comment section -->
+    <div id="comment_container">
+
+        <h1>{{ comments | length }} Comments</h1>
+        <!-- add comment form -->
+        <div id="comment_form_container">
+            <form action="{% url 'listing_page' listing.title %}" method="post">
+
+                {% csrf_token %}
+                <textarea id="comment_textarea" name="comment"></textarea>
+                <div id="buttons_container">
+                    <button type="reset" id="cancel_button">Cancel</button>
+                    <button id="comment_submit_button" type="submit" disabled>Comment</button>
+                </div>
+    
+            </form>
+        </div>
+
+        <!-- comments list -->
+         {% for comment in comments %}
+
+            <div class="comment">
+                <h6>{{ comment.user.username }}<span style="color: grey"> {{ comment.date }}</span></h6>
+                <p>{{ comment.content }}</p>
+            </div>
+
+        {% endfor %}
+    </div>
+
+    <!-- disables the comment button if the input is empty -->
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            let comment = document.querySelector("#comment_textarea");
+            let submit_button = document.querySelector("#comment_submit_button")
+
+            comment.addEventListener("input", ()=>{
+                if (comment.value.trim() == ""){
+                    submit_button.disabled = true;
+                }
+                else{
+                    submit_button.disabled = false;
+                }
+            })
+            
+        })
+    </script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block style %}
+    <link href="{% static 'auctions/styles5.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div id="categories_container">
+        {% for _,category in categories %}
+            <div class="category_container">
+
+                <form class="category_form" action="{% url 'categories' %}" method="post">
+                    {% csrf_token %}
+                    <input hidden name="category" value="{{ category}}">
+                    <h3>{{ category }}</h3>
+                </form>
+
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            document.querySelectorAll(".category_container").forEach(container =>{
+                container.addEventListener("click", ()=>{
+                    container.querySelector(".category_form").submit();
+                })
+            })
+            })
+    </script>
+{% endblock %}

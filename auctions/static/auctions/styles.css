@@ -1,0 +1,63 @@
+/* === General Body === */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa; /* light gray background */
+    color: #333;
+}
+
+/* === Header === */
+.main-title {
+    color: #007bff; /* blue */
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.user-info {
+    font-size: 16px;
+    margin-top: 5px;
+    color: #555;
+}
+
+/* === Navigation === */
+.custom-nav-link {
+    color: #007bff !important;
+    font-weight: 500;
+    margin: 0 8px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.custom-nav-link:hover {
+    color: #fff !important;
+    background-color: #007bff;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+/* Remove Bootstrap underline on hover */
+.navbar-nav .nav-link:focus, 
+.navbar-nav .nav-link:hover {
+    text-decoration: none;
+}
+
+/* === Horizontal line === */
+.custom-hr {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+
+/* === Container for body content === */
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Optional: make forms and listings look nicer inside the container */
+.container form, .container .listing-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}

@@ -1,0 +1,38 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block style %}
+    <link href="{% static 'auctions/styles6.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    {% if message %}
+        <p> {{ message }}</p>
+    {% endif %}
+    <h2>Active Listings</h2>
+
+    {% for listing in listings %}
+        <div class="listing_container" onclick="VisitUrl('{{ listing.title }}')">
+            <div class="listing_image_container">
+                {% if listing.image_url %}
+                    <img src="{{ listing.image_url.url }}" alt="" width="320">
+                {% else %}
+                    <img src="{% static '/auctions/no_image_vector.jpg' %}" width="320">
+                {% endif %}
+            </div>
+            <div  class="listing_text_container">
+                <h4>{{ listing.title }}</h4>
+                {% if listing.description %}
+                    <p>{{ listing.description }}</p>
+                {% endif %}
+                <h6><strong>price</strong>: ${{ listing.highest_bid }}</h6>
+            </div>
+        </div>
+
+        <script>
+            function VisitUrl(name){
+                window.location.href= `${name}/`;
+            }
+        </script>
+    {% endfor %}
+{% endblock %}

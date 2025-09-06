@@ -1,0 +1,64 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Bid
+{% endblock %}
+
+{% block style %}
+    <link href="{% static 'auctions/styles3.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <h1>{{ listing.title }}</h1>
+    <form action="{% url 'bid' listing.title %}" method="post">
+        {% csrf_token %}
+        <div id="bid_container">
+            <div>
+                <h3>Current Price: ${{ listing.highest_bid }}.00USD</h3>
+                <label for="bid_input">Your Bid</label>
+                <input id="bid_input" type="number" name="bid">
+            </div>
+            <div>
+                <h3 id="raised_by_header">Raised By:</h3>
+            </div>
+            {% if error %}
+                <p>Error: {{ error }}</p>
+            {% endif %}
+            <div>
+                <button type="submit">Bid</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=>{
+            let highest_bid = parseInt("{{ listing.highest_bid }}");
+            let bid_input = document.querySelector("#bid_input");
+            let raised = document.querySelector("#raised_by_header");
+            
+
+            bid_input.addEventListener("input", ()=>{
+                raised_value = parseInt(bid_input.value) - highest_bid;
+
+                if (isNaN(raised_value)){
+                    raised.innerHTML = "Raised By: ";
+                }
+                else{
+                raised.innerHTML = `Raised By: ${parseInt(bid_input.value) - highest_bid}`;
+                }
+                
+
+                if (raised_value <= 0){
+                    raised.style.color = "red";
+                }
+                else if (raised_value > 0){
+                    raised.style.color = "green";
+                }
+                else{
+                    raised.style.color = "black";
+                }
+            })
+        })
+    </script>
+{% endblock %}
